@@ -1,24 +1,12 @@
 import * as express from 'express'
+
 const app = express()
 
-app.get('/', (req, res)=>{
-    res.send('GET /')
-})
+import userController from './controler/userController'
+import postController from './controler/postController'
 
-app.post('/', (req, res)=>{
-    res.status(201).send('POST /')
-})
+app.use('/user', userController)
+app.use('/post', postController)
 
-app.put('/', (req, res)=>{
-    res.status(400).send('PUT /')
-})
-
-app.patch('/', (req, res)=>{
-    res.send('PATCH /')
-})
-
-app.delete('/', (req, res)=>{
-    res.send('DELETE /')
-})
 
 app.listen(3000, ()=> console.log(`ONLINE htpp://localhost:3000`))
