@@ -6,8 +6,17 @@ const router = Router()
 
 /* cadastrar*/
 router.post('/signup', (req, res)=>{
-    const answer = signup(req.body)
-    res.send(answer)
+    try{
+        const answer = signup(req.body)
+        res.send(answer)
+    }catch(erro){
+        if(erro.message=== 'email_existente'){
+            res.status(400).send(erro.message)
+        }else{
+            res.status(500).send(erro.message)
+        }
+        
+    }
 })
 
 /* logar*/
