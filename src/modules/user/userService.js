@@ -1,8 +1,7 @@
-import {sign} from 'jsonwebtoken'
+import {generateAccessToken} from '../../utils/auth'
 
 let users = [] /*Está substituindo banco de dados  */
 
-const generateAccessToken = (data)=>sign(data, 'secret')
 
 /*cria const getUserByEmail e percorre users verificando se o obj dele é igual variavelEmail  */
 const getUserByEmail = (variavelEmail) =>
