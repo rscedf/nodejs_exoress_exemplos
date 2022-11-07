@@ -1,4 +1,8 @@
+import {sign} from 'jsonwebtoken'
+
 let users = [] /*Está substituindo banco de dados  */
+
+const generateAccessToken = (data)=>sign(data, 'secret')
 
 /*cria const getUserByEmail e percorre users verificando se o obj dele é igual variavelEmail  */
 const getUserByEmail = (variavelEmail) =>
@@ -6,10 +10,20 @@ const getUserByEmail = (variavelEmail) =>
 
 
 export const signup = (data)=>{
-    if(getUserByEmail(data.email)){ /*se a função retornar true  */
-        console.log("Existe Email")
-    }else{
+    if(getUserByEmail(data.email)) throw new Error('email_existente')/*se a função retornar true  */
+        
+    else{
         users.push(data)
-    }
-    return true
+        return generateAccessToken({email:data.email})
+    }   
+
+}
+
+export const login = (data)=>{
+    const user= getUserByEmail(data.email)
+    if(!user) throw new Error('email_nao_encontrado')
+
+    if(user.password !== data.password) throw new Error('senha_incorreta')
+
+    return generateAccessToken({email:data.email})
 }
